@@ -1,0 +1,47 @@
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+ScreenManagement:
+    transition: FadeTransition()
+    MenuScreen:
+    AlarmScreen:
+    ForecastScreen:
+
+<MenuScreen>:
+    name: "Menu"
+    BoxLayout:
+        Button:
+            text: 'Goto Alarm'
+            on_press: root.manager.current = 'Alarm'
+        Button:
+            text: 'Goto Forecast'
+            on_press:root.manager.current = 'Forecast'
+        Button:
+            text: 'Quit'
+            on_press:exit()
+
+<AlarmScreen>:
+    name:"Alarm"
+    BoxLayout:
+        Button:
+            text:'Set Alarm'
+            on_press: root.open_alarm()
+        Button:
+            text:'Back to Menu'
+            on_press: root.manager.current = 'Menu'
+
+<ForecastScreen>:
+    name: "Forecast"
+    BoxLayout:
+        Button:
+            text: 'Get Forecast'
+            on_press: root.open_forecast()
+        Button:
+            text: 'Back to menu'
+            on_press: root.manager.current = 'Menu'
+
+<Alarm>
+    BoxLayout:
+        Label:
+            text: "Hello World"
+        Button:
+            text: 'Back'
+            on_press: root.close_alarm()

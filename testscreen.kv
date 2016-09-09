@@ -8,6 +8,10 @@ ScreenManagement:
 <MenuScreen>:
     name: "Menu"
     BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: clock
+            text: root.show_time()
         Button:
             text: 'Goto Alarm'
             on_press: root.manager.current = 'Alarm'
@@ -45,3 +49,8 @@ ScreenManagement:
         Button:
             text: 'Back'
             on_press: root.close_alarm()
+
+# <Forecast>
+#    BoxLayout:
+#        Label:
+#             text:

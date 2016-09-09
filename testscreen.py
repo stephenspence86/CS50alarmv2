@@ -25,30 +25,28 @@ lng = -1.7578900
 
 forecast = forecastio.load_forecast(api_key, lat, lng)
 
-# Create both screens. Please note the root.manager.current: this is how
-# you can control the ScreenManager from kv. Each screen has by default a
-# property manager that gives you the instance of the ScreenManager used.
-
 class Alarm(Popup):
     def close_alarm(self):
         self.dismiss()
-# Declare both screens
 
-class Forecast(Widget):
+class Forecast(Popup):
     pass
 
 class MenuScreen(Screen):
-    pass
+
+    def show_time(self, *args):
+        self.time = time.asctime()
+        return self.time
 
 class AlarmScreen(Screen):
     def open_alarm(self):
-        a = Alarm()
-        a.open()
+        a =Alarm()
+        a.open
 
 class ForecastScreen(Screen):
     def open_forecast(self):
-        forecast
-
+        f = Forecast()
+        f.open
 class ScreenManagement(ScreenManager):
     pass
 # Create the screen manager
@@ -58,6 +56,8 @@ presentation = Builder.load_file("testscreen.kv")
 class TestApp(App):
 
     def build(self):
+        menuclock = MenuScreen.show_time
+        Clock.schedule_interval(menuclock, 1)
         return presentation
 
 if __name__ == '__main__':

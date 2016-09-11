@@ -4,14 +4,18 @@ ScreenManagement:
     MenuScreen:
     AlarmScreen:
     ForecastScreen:
+    QuitScreen:
+    RadioScreen:
+    SetAlarm
+
 
 <MenuScreen>:
-    name: "Menu"
+    name: 'Menu'
     BoxLayout:
         orientation: 'vertical'
-        Label:
-            id: clock
-            text: root.show_time()
+        DisplayTime:
+            id:clock
+            text: root.get_time()
         Button:
             text: 'Goto Alarm'
             on_press: root.manager.current = 'Alarm'
@@ -19,22 +23,27 @@ ScreenManagement:
             text: 'Goto Forecast'
             on_press:root.manager.current = 'Forecast'
         Button:
+            text: 'Goto Radio'
+            on_press: root.manager.current = 'Radio'
+        Button:
             text: 'Quit'
-            on_press:exit()
+            on_press:root.manager.current = 'Quit'
 
 <AlarmScreen>:
-    name:"Alarm"
+    name:'Alarm'
     BoxLayout:
+        orientation: 'vertical'
         Button:
             text:'Set Alarm'
-            on_press: root.open_alarm()
+            on_press: root.manager.current = 'SetAlarm'
         Button:
             text:'Back to Menu'
             on_press: root.manager.current = 'Menu'
 
 <ForecastScreen>:
-    name: "Forecast"
+    name: 'Forecast'
     BoxLayout:
+        orientation: 'vertical'
         Button:
             text: 'Get Forecast'
             on_press: root.open_forecast()
@@ -42,13 +51,41 @@ ScreenManagement:
             text: 'Back to menu'
             on_press: root.manager.current = 'Menu'
 
-<Alarm>
+<RadioScreen>:
+    name: 'Radio'
+    BoxLayout
+        orientation: 'vertical'
+        Button:
+            id: 'btn1'
+            text: 'Play Radio'
+        Button:
+            text: 'Change Station'
+        Button:
+            text: 'Back to Menu'
+            on_press: root.manager.current = 'Menu'
+
+<QuitScreen>:
+    name:'Quit'
     BoxLayout:
+        orientation: 'vertical'
         Label:
-            text: "Hello World"
+            text: 'Are you sure you want to quit?'
+        Button:
+            text: 'No'
+            on_press: root.manager.current = 'Menu'
+        Button:
+            text: 'Yes'
+            on_press: exit()
+
+<SetAlarm>:
+    name:'SetAlarm'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Hello World'
         Button:
             text: 'Back'
-            on_press: root.close_alarm()
+            on_press: root.manager.current = 'Menu'
 
 # <Forecast>
 #    BoxLayout:

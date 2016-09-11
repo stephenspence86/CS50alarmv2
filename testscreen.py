@@ -6,15 +6,15 @@ from kivy.utils import escape_markup
 from kivy.uix.widget import Widget
 from kivy.uix.label import Label
 from kivy.core.window import Window
-#from kivy.config import Config
+from kivy.config import Config
 from kivy.clock import Clock
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
-#from datetime import datetime
-#from kivy.graphics import Color
+from datetime import datetime
+from kivy.graphics import Color
 from kivy.uix.popup import Popup
-#from kivy.core.text.markup import MarkupLabel
-#from kivy.core.text import LabelBase
+from kivy.core.text.markup import MarkupLabel
+from kivy.core.text import LabelBase
 from kivy.properties import StringProperty, ObjectProperty
 from kivy.graphics import Line
 import forecastio
@@ -25,39 +25,61 @@ lng = -1.7578900
 
 forecast = forecastio.load_forecast(api_key, lat, lng)
 
-class Alarm(Popup):
-    def close_alarm(self):
-        self.dismiss()
 
 class Forecast(Popup):
     pass
 
-class MenuScreen(Screen):
+class DisplayTime(Label):
+    pass
 
-    def show_time(self, *args):
-        self.time = time.asctime()
-        return self.time
+class MenuScreen(Screen):
+    def get_time(self):
+        return time.strftime("%H:%M:%S")
+
 
 class AlarmScreen(Screen):
     def open_alarm(self):
-        a =Alarm()
-        a.open
+        content = BoxLayout(orientation='vertical')
+        label = Label(
+                text=('[color=#59c6ff] hello World [/color]'), markup=True)
+        btn3 = Button(text='close me!', background_normal='',
+                          background_color=(0.349, 0.776, 1.0, 1.0))
+        content.add_widget(label)
+        content.add_widget(btn3)
+
+        popup = Popup(content=content,
+                      title='Alarm?',
+                          size_hint=(None, None), size=(400, 400),
+                          auto_dismiss=False,
+                          background='',
+                         )
+        popup.open()
+        btn3.bind(on_release=popup.dismiss)
 
 class ForecastScreen(Screen):
     def open_forecast(self):
         f = Forecast()
         f.open
+
+class QuitScreen(Screen):
+    pass
+
+class SetAlarm(Screen):
+    pass
+
+class RadioScreen(Screen):
+    pass
+
 class ScreenManagement(ScreenManager):
     pass
-# Create the screen manager
 
 presentation = Builder.load_file("testscreen.kv")
 
 class TestApp(App):
 
     def build(self):
-        menuclock = MenuScreen.show_time
-        Clock.schedule_interval(menuclock, 1)
+        #menuclock = MenuScreen()
+        #Clock.schedule_interval(menuclock.get_time, 1)
         return presentation
 
 if __name__ == '__main__':

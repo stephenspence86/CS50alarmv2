@@ -10,6 +10,7 @@ from kivy.config import Config
 from kivy.clock import Clock
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.floatlayout import FloatLayout
 from datetime import datetime
 from kivy.graphics import Color
 from kivy.uix.popup import Popup
@@ -26,7 +27,15 @@ lat = 52.3782080
 lng = -1.7578900
 
 forecast = forecastio.load_forecast(api_key, lat, lng)
+AppisRunning = True
 
+# while AppisRunning == True:
+#     AlarmSound = False
+#     alarmtime = StringProperty()
+#     now = datetime.now()
+#
+#     if alarmtime == now:
+#         AlarmSound = True
 
 class CurrentForecast(Screen):
     def current_forecast(self):
@@ -34,7 +43,7 @@ class CurrentForecast(Screen):
         cf = hourly.summary
         return str(cf)
 
-class DisplayTime(BoxLayout):
+class DisplayTime(Widget):
     pass
 
 class MenuScreen(Screen):

@@ -15,28 +15,38 @@ ScreenManagement:
     name: 'Menu'
     clock: clock
 
-    BoxLayout:
-        orientation: 'vertical'
+    FloatLayout:
+        size: self.size
         DisplayTime:
             Label:
+                size_hint: self.size
+                pos:  20, 20
                 id: clock
                 text: app.time
         Button:
+            size_hint: .25, .2
+            pos: 0, 0
             text: 'Goto Alarm'
             on_press:
                 root.manager.transition.direction = 'left'
                 root.manager.current = 'Alarm'
         Button:
+            size_hint: .25, .2
+            pos: 200,0
             text: 'Goto Forecast'
             on_press:
                 root.manager.transition.direction = 'left'
                 root.manager.current = 'Forecast'
         Button:
+            size_hint: .25, .2
+            pos: 400, 0
             text: 'Goto Radio'
             on_press:
                 root.manager.transition.direction = 'left'
                 root.manager.current = 'Radio'
         Button:
+            size_hint: .25, .2
+            pos: 600, 0
             text: 'Quit'
             on_press:
                 root.manager.transition.direction = 'up'

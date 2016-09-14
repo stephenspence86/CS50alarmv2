@@ -1,33 +1,46 @@
 #: import FadeTransition kivy.uix.screenmanager.FadeTransition
 ScreenManagement:
-    transition: FadeTransition()
+    #transition: FadeTransition()
     MenuScreen:
     AlarmScreen:
     ForecastScreen:
     QuitScreen:
     RadioScreen:
-    SetAlarm
+    SetAlarm:
+    ViewAlarm:
+    CurrentForecast:
 
 
 <MenuScreen>:
     name: 'Menu'
+    clock: clock
+
     BoxLayout:
         orientation: 'vertical'
         DisplayTime:
-            id:clock
-            text: root.get_time()
+            Label:
+                id: clock
+                text: app.time
         Button:
             text: 'Goto Alarm'
-            on_press: root.manager.current = 'Alarm'
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'Alarm'
         Button:
             text: 'Goto Forecast'
-            on_press:root.manager.current = 'Forecast'
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'Forecast'
         Button:
             text: 'Goto Radio'
-            on_press: root.manager.current = 'Radio'
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'Radio'
         Button:
             text: 'Quit'
-            on_press:root.manager.current = 'Quit'
+            on_press:
+                root.manager.transition.direction = 'up'
+                root.manager.current = 'Quit'
 
 <AlarmScreen>:
     name:'Alarm'
@@ -35,10 +48,19 @@ ScreenManagement:
         orientation: 'vertical'
         Button:
             text:'Set Alarm'
-            on_press: root.manager.current = 'SetAlarm'
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'SetAlarm'
+        Button:
+            text: 'View Alarms'
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'ViewAlarm'
         Button:
             text:'Back to Menu'
-            on_press: root.manager.current = 'Menu'
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'Menu'
 
 <ForecastScreen>:
     name: 'Forecast'
@@ -46,10 +68,14 @@ ScreenManagement:
         orientation: 'vertical'
         Button:
             text: 'Get Forecast'
-            on_press: root.open_forecast()
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'CurrentForecast'
         Button:
             text: 'Back to menu'
-            on_press: root.manager.current = 'Menu'
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'Menu'
 
 <RadioScreen>:
     name: 'Radio'
@@ -62,7 +88,9 @@ ScreenManagement:
             text: 'Change Station'
         Button:
             text: 'Back to Menu'
-            on_press: root.manager.current = 'Menu'
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'Menu'
 
 <QuitScreen>:
     name:'Quit'
@@ -72,7 +100,9 @@ ScreenManagement:
             text: 'Are you sure you want to quit?'
         Button:
             text: 'No'
-            on_press: root.manager.current = 'Menu'
+            on_press:
+                root.manager.transition.direction = 'down'
+                root.manager.current = 'Menu'
         Button:
             text: 'Yes'
             on_press: exit()
@@ -85,9 +115,31 @@ ScreenManagement:
             text: 'Hello World'
         Button:
             text: 'Back'
-            on_press: root.manager.current = 'Menu'
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'Alarm'
 
-# <Forecast>
-#    BoxLayout:
-#        Label:
-#             text:
+<ViewAlarm>:
+    name:'ViewAlarm'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'OI HAI! '
+        Button:
+            text: 'Back'
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'Alarm'
+
+
+<CurrentForecast>:
+    name: 'CurrentForecast'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: root.current_forecast()
+        Button:
+            text: 'Back'
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'Forecast'

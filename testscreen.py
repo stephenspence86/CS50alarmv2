@@ -15,8 +15,10 @@ from kivy.graphics import Color
 from kivy.uix.popup import Popup
 from kivy.core.text.markup import MarkupLabel
 from kivy.core.text import LabelBase
-from kivy.properties import StringProperty, ObjectProperty
+from kivy.properties import *
 from kivy.graphics import Line
+from kivy.base import runTouchApp
+from kivy.garden import roulette, roulettescroll, tickline
 import forecastio
 
 api_key = "9ca514decbdf7d7055ba9de5228cfa77"
@@ -26,45 +28,50 @@ lng = -1.7578900
 forecast = forecastio.load_forecast(api_key, lat, lng)
 
 
-class Forecast(Popup):
-    pass
+class CurrentForecast(Screen):
+    def current_forecast(self):
+        hourly= forecast.currently()
+        cf = hourly.summary
+        return str(cf)
 
-class DisplayTime(Label):
+class DisplayTime(BoxLayout):
     pass
 
 class MenuScreen(Screen):
-    def get_time(self):
+    def get_time(self, *args):
         return time.strftime("%H:%M:%S")
 
 
 class AlarmScreen(Screen):
-    def open_alarm(self):
-        content = BoxLayout(orientation='vertical')
-        label = Label(
-                text=('[color=#59c6ff] hello World [/color]'), markup=True)
-        btn3 = Button(text='close me!', background_normal='',
-                          background_color=(0.349, 0.776, 1.0, 1.0))
-        content.add_widget(label)
-        content.add_widget(btn3)
-
-        popup = Popup(content=content,
-                      title='Alarm?',
-                          size_hint=(None, None), size=(400, 400),
-                          auto_dismiss=False,
-                          background='',
-                         )
-        popup.open()
-        btn3.bind(on_release=popup.dismiss)
+    pass
+    # def open_alarm(self):
+    #     content = BoxLayout(orientation='vertical')
+    #     label = Label(
+    #             text=('[color=#59c6ff] hello World [/color]'), markup=True)
+    #     btn3 = Button(text='close me!', background_normal='',
+    #                       background_color=(0.349, 0.776, 1.0, 1.0))
+    #     content.add_widget(label)
+    #     content.add_widget(btn3)
+    #
+    #     popup = Popup(content=content,
+    #                   title='Alarm?',
+    #                       size_hint=(None, None), size=(400, 400),
+    #                       auto_dismiss=False,
+    #                       background='',
+    #                      )
+    #     popup.open()
+    #     btn3.bind(on_release=popup.dismiss)
 
 class ForecastScreen(Screen):
-    def open_forecast(self):
-        f = Forecast()
-        f.open
+    pass
 
 class QuitScreen(Screen):
     pass
 
 class SetAlarm(Screen):
+    pass
+
+class ViewAlarm(Screen):
     pass
 
 class RadioScreen(Screen):
@@ -73,13 +80,15 @@ class RadioScreen(Screen):
 class ScreenManagement(ScreenManager):
     pass
 
-presentation = Builder.load_file("testscreen.kv")
-
 class TestApp(App):
+    time = StringProperty()
+
+    def showTime(self, *args):
+        self.time = time.strftime('%H:%M:%S')
 
     def build(self):
-        #menuclock = MenuScreen()
-        #Clock.schedule_interval(menuclock.get_time, 1)
+        presentation = Builder.load_file("testscreen.kv")
+        Clock.schedule_interval(self.showTime, 1)
         return presentation
 
 if __name__ == '__main__':

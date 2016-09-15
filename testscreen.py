@@ -11,6 +11,8 @@ from kivy.clock import Clock
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.anchorlayout import AnchorLayout
 from datetime import datetime
 from kivy.graphics import Color
 from kivy.uix.popup import Popup
@@ -37,16 +39,21 @@ AppisRunning = True
 #     if alarmtime == now:
 #         AlarmSound = True
 
+
 class CurrentForecast(Screen):
+
     def current_forecast(self):
-        hourly= forecast.currently()
+        hourly = forecast.currently()
         cf = hourly.summary
         return str(cf)
 
-class DisplayTime(Widget):
+
+class DisplayTime(BoxLayout):
     pass
 
+
 class MenuScreen(Screen):
+
     def get_time(self, *args):
         return time.strftime("%H:%M:%S")
 
@@ -71,23 +78,30 @@ class AlarmScreen(Screen):
     #     popup.open()
     #     btn3.bind(on_release=popup.dismiss)
 
+
 class ForecastScreen(Screen):
     pass
+
 
 class QuitScreen(Screen):
     pass
 
+
 class SetAlarm(Screen):
     pass
+
 
 class ViewAlarm(Screen):
     pass
 
+
 class RadioScreen(Screen):
     pass
 
+
 class ScreenManagement(ScreenManager):
     pass
+
 
 class TestApp(App):
     time = StringProperty()
@@ -98,6 +112,7 @@ class TestApp(App):
     def build(self):
         presentation = Builder.load_file("testscreen.kv")
         Clock.schedule_interval(self.showTime, 1)
+        Window.clearcolor = (.97, .97, .97, 1)
         return presentation
 
 if __name__ == '__main__':

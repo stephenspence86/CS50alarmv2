@@ -1,4 +1,34 @@
 #: import FadeTransition kivy.uix.screenmanager.FadeTransition
+# <Widget>:
+#     background_normal: ''
+#     background_color: (0,0,0,1)
+#Global settings for widgets
+
+<Label>:
+    color: (0.349, 0.776, 1.0, 1.0)
+    background_normal: ' '
+    font_name: 'Arial'
+    font_size: 24
+    texture_size: self.size
+    text_size: self.size
+    halign: 'center'
+    valign: 'middle'
+
+<Button>:
+    background_color: (.90, .90, .90, 1)
+    background_normal: ''
+    font_name:'Arial'
+    font_size: 40
+    color: (0.349, 0.776, 1.0, 1.0)
+    halign: 'left'
+    valign: 'middle'
+    padding_x: 20
+
+<BoxLayout>:
+    orientation: 'vertical'
+    spacing: 2
+
+# Add screens to screen manager here
 ScreenManagement:
     #transition: FadeTransition()
     MenuScreen:
@@ -13,40 +43,42 @@ ScreenManagement:
 
 <MenuScreen>:
     name: 'Menu'
-    clock: clock
-
-    FloatLayout:
-        size: self.size
+    BoxLayout:
+        # orientation: 'vertical'
+        # spacing: 5
         DisplayTime:
+            size_hint: 1, 2
             Label:
-                size_hint: self.size
-                pos:  20, 20
                 id: clock
                 text: app.time
+                font_size: 100
+                # font_name: 'Arial'
+                # halign: 'center'
+                # valign: 'middle'
         Button:
-            size_hint: .25, .2
-            pos: 0, 0
-            text: 'Goto Alarm'
+            # size_hint: .25, .2
+            # pos: 0, 0
+            text: 'Alarm'
             on_press:
                 root.manager.transition.direction = 'left'
                 root.manager.current = 'Alarm'
         Button:
-            size_hint: .25, .2
-            pos: 200,0
-            text: 'Goto Forecast'
+            # size_hint: .25, .2
+            # pos: 200,0
+            text: 'Forecast'
             on_press:
                 root.manager.transition.direction = 'left'
                 root.manager.current = 'Forecast'
         Button:
-            size_hint: .25, .2
-            pos: 400, 0
-            text: 'Goto Radio'
+            # size_hint: .25, .2
+            # pos: 400, 0
+            text: 'Radio'
             on_press:
                 root.manager.transition.direction = 'left'
                 root.manager.current = 'Radio'
         Button:
-            size_hint: .25, .2
-            pos: 600, 0
+            # size_hint: .25, .2
+            # pos: 600, 0
             text: 'Quit'
             on_press:
                 root.manager.transition.direction = 'up'
@@ -54,8 +86,8 @@ ScreenManagement:
 
 <AlarmScreen>:
     name:'Alarm'
-    FloatLayout:
-        orientation: 'vertical'
+    BoxLayout:
+        # orientation: 'vertical'
         Button:
             text:'Set Alarm'
             on_press:
@@ -75,7 +107,7 @@ ScreenManagement:
 <ForecastScreen>:
     name: 'Forecast'
     BoxLayout:
-        orientation: 'vertical'
+        # orientation: 'vertical'
         Button:
             text: 'Get Forecast'
             on_press:
@@ -90,7 +122,7 @@ ScreenManagement:
 <RadioScreen>:
     name: 'Radio'
     BoxLayout
-        orientation: 'vertical'
+        # orientation: 'vertical'
         Button:
             id: 'btn1'
             text: 'Play Radio'
@@ -105,7 +137,7 @@ ScreenManagement:
 <QuitScreen>:
     name:'Quit'
     BoxLayout:
-        orientation: 'vertical'
+        # orientation: 'vertical'
         Label:
             text: 'Are you sure you want to quit?'
         Button:
@@ -120,7 +152,7 @@ ScreenManagement:
 <SetAlarm>:
     name:'SetAlarm'
     BoxLayout:
-        orientation: 'vertical'
+        # orientation: 'vertical'
         Label:
             text: 'Hello World'
         Button:
@@ -132,7 +164,7 @@ ScreenManagement:
 <ViewAlarm>:
     name:'ViewAlarm'
     BoxLayout:
-        orientation: 'vertical'
+        # orientation: 'vertical'
         Label:
             text: 'OI HAI! '
         Button:
@@ -145,7 +177,7 @@ ScreenManagement:
 <CurrentForecast>:
     name: 'CurrentForecast'
     BoxLayout:
-        orientation: 'vertical'
+        # orientation: 'vertical'
         Label:
             text: root.current_forecast()
         Button:
